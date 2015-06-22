@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:AutoIncOrderProcess="http://process.order.autoinc.com/AutoIncOrderProcess/" xmlns:PaymentService="http://servicepayment.autoinc.com/PaymentService/" xmlns:SupplyService="http://supplier.autoinc.com/SupplyService/" xmlns:WareHouseService="http://www.example.org/WareHouseService/" xmlns:check.autoinc.com="http://check.autoinc.com" xmlns:order.autoinc.com="http://order.autoinc.com">
+  <process name="order.autoinc.com:OrderProcess">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="order.autoinc.com:OrderProcessService" port="OrderProcessPort"/>
+    </provide>
+    <invoke partnerLink="AutoIncfactoryPL">
+      <service name="AutoIncOrderProcess:AutoIncOrderProcess" port="AutoIncOrderProcessSOAP"/>
+    </invoke>
+    <invoke partnerLink="WareHousePL">
+      <service name="WareHouseService:WareHouseService" port="WareHouseServiceSOAP"/>
+    </invoke>
+    <invoke partnerLink="SupplyPL">
+      <service name="SupplyService:SupplyService" port="SupplyServiceSOAP"/>
+    </invoke>
+    <invoke partnerLink="PaymentProviderPL">
+      <service name="PaymentService:PaymentService" port="PaymentServiceSOAP"/>
+    </invoke>
+    <invoke partnerLink="AvailabilityProviderPL">
+      <service name="check.autoinc.com:AutoIncCheckAvailabilityProcessService" port="AutoIncCheckAvailabilityProcessPort"/>
+    </invoke>
+  </process>
+</deploy>
